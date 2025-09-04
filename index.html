@@ -7,14 +7,33 @@
   <style>
     .carousel-jotform {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
+      justify-content: center;
       max-width: 100vw;
       width: 100%;
       user-select: none;
       margin-top: 24px;
     }
-    .carousel-images {
+    .carousel-btn {
+      background: #ffffff;
+      border: none;
+      color: #222;
+      font-size: 2rem;
+      padding: 0.4em 0.8em;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s;
+      opacity: 0.85;
+      align-self: center;
+      margin: 0 1em;
+    }
+    .carousel-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .carousel-frame {
       position: relative;
       width: 95vw;
       max-width: 340px;
@@ -24,7 +43,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+      background: #ffffff;
+      border-radius: 12px;
+    }
+    .carousel-images {
+      width: 100%;
+      height: 100%;
+      position: relative;
     }
     .carousel-img {
       position: absolute;
@@ -36,32 +61,18 @@
       opacity: 0;
       transition: opacity 0.5s;
       pointer-events: none;
-      background: #fafafa;
+      background: #ffffff;
     }
     .carousel-img.active {
       opacity: 1;
       pointer-events: all;
     }
-    .carousel-btn {
-      background: #fff;
-      border: none;
-      color: #222;
-      font-size: 2rem;
-      padding: 0.4em 0.8em;
-      cursor: pointer;
-      border-radius: 50%;
-      margin: 1em 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: background 0.2s;
-    }
-    .carousel-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
     .carousel-indicators {
       display: flex;
       gap: 0.5em;
       margin-top: 1em;
+      justify-content: center;
+      width: 100%;
     }
     .carousel-indicators span {
       width: 12px;
@@ -76,13 +87,18 @@
       background: #222;
     }
     @media (max-width: 600px) {
-      .carousel-images {
+      .carousel-jotform {
+        flex-direction: column;
+      }
+      .carousel-frame {
         max-width: 98vw;
         max-height: 98vw;
+        height: 98vw;
       }
       .carousel-btn {
         font-size: 1.4rem;
         padding: 0.3em 0.6em;
+        margin: 0.5em 0;
       }
     }
   </style>
@@ -90,8 +106,9 @@
 <body>
   <div class="carousel-jotform">
     <button class="carousel-btn left" onclick="prevSlide()">&#8592;</button>
-    <div class="carousel-images">
-     <img src="Card.jpg" alt="Imagem 1" class="carousel-img active" />
+    <div class="carousel-frame">
+      <div class="carousel-images">
+             <img src="Card.jpg" alt="Imagem 1" class="carousel-img active" />
     <img src="Card (1).jpg" alt="Imagem 2" class="carousel-img" />
     <img src="Card (2).jpg" alt="Imagem 3" class="carousel-img" />
     <img src="Card (3).jpg" alt="Imagem 3" class="carousel-img" />
@@ -103,11 +120,11 @@
     <img src="Card (9).jpg" alt="Imagem 3" class="carousel-img" />
     </div>
     <button class="carousel-btn right" onclick="nextSlide()">&#8594;</button>
-    <div class="carousel-indicators"></div>
   </div>
+  <div class="carousel-indicators"></div>
   <script>
     var imgs = document.querySelectorAll('.carousel-jotform .carousel-img');
-    var indicatorsContainer = document.querySelector('.carousel-jotform .carousel-indicators');
+    var indicatorsContainer = document.querySelector('.carousel-indicators');
     var currentIdx = 0;
 
     // Cria os indicadores
